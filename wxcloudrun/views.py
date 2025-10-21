@@ -64,3 +64,22 @@ def get_count():
     """
     counter = Counters.query.filter(Counters.id == 1).first()
     return make_succ_response(0) if counter is None else make_succ_response(counter.count)
+
+
+# 新增一个测试接口
+@app.route('/api/hello', methods=['GET'])
+def hello():
+    """
+    :return: 测试接口返回hello world
+    """
+    return make_succ_response('hello world')
+
+# 接收消息推送接口
+@app.route('/api/message_event_push', methods=['POST'])
+def message_event_push():
+    """处理消息推送事件"""
+    params = request.get_json()
+    if 'message' not in params:
+        return make_err_response('缺少message参数')
+    message = params['message']
+    return make_succ_response(message)
