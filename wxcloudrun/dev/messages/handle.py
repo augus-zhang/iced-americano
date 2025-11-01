@@ -16,7 +16,7 @@ def verify_wechat_request(data):
         timestamp = data.get("timestamp")
         nonce = data.get("nonce")
         echostr = data.get("echostr")
-        token = "augus_test_001"  # 请按照公众平台官网\基本配置中信息填写
+        token = "LkzwgjSUrno7Tz7Tql"  # 请按照公众平台官网\基本配置中信息填写
 
         list_ = [token, timestamp, nonce].sort()
         sha1 = hashlib.sha1()
