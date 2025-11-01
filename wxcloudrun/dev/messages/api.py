@@ -25,6 +25,9 @@ def message_event_push():
             return ""
     
     app.logger.info('--------Received wechat message: {}'.format(request.data.decode('utf-8')))
+    # 过滤探测请求(云托管上填写URL时会有此类请求)
+    if request.data.decode('utf-8') == "CheckContainerPath":
+        return "success"
     msg_handle = MsgHandle(request.data.decode('utf-8'))
     reply_xml = msg_handle.handle()
     if reply_xml is None:
