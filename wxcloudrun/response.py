@@ -19,5 +19,5 @@ def make_err_response(err_msg):
 
 
 def message_push_response(data):
-    data = json.dumps(data)
+    data = json.dumps(data).encode('utf-8')
     return Response(data, mimetype='application/json')
