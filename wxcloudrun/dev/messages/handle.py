@@ -41,8 +41,10 @@ class MsgHandle(object):
     def handle(self):
         """处理接收到的消息并生成回复"""
         if len(self.xml_data) == 0:
-            return None
+            return "error: xml data is empty"
         xml_data = ET.fromstring(self.xml_data)
+        if xml_data.find('MsgType') is None:
+            return "error: xml data is invalid"
         msg_type = xml_data.find('MsgType').text
 
         if msg_type == 'text':

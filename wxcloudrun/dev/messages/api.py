@@ -30,6 +30,6 @@ def message_event_push():
     
     msg_handle = MsgHandle(request.data.decode('utf-8'))
     reply_xml = msg_handle.handle()
-    if reply_xml is None:
-        return message_push_response("xml data is empty")
-    return message_push_response(reply_xml)    
+    # if reply_xml.startswith("error:"):
+    #     return message_push_response(reply_xml)
+    return message_push_response(reply_xml)
