@@ -1,5 +1,13 @@
 {
-  "containers": [],
+  "containers": [
+    {
+      "name": "iced-americano",
+      "domain": "",
+      "ip": "",
+      "mode": "compose",
+      "containerId": "45b6109f3497c289bec3c2805ae3fe1ff1ebbbe65224c178b886509ab39813e4"
+    }
+  ],
   "config": {
     "iced-americano": {
       "containerPort": 80,
