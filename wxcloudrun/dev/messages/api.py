@@ -2,7 +2,7 @@ import logging
 from run import app
 from flask import request
 from wxcloudrun.dev.messages.handle import *
-from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
+from wxcloudrun.response import *
 
 # 新增一个测试接口
 @app.route('/api/hello', methods=['GET'])
@@ -19,17 +19,17 @@ def message_event_push():
     if request.method == 'GET':
         verify_resp = verify_wechat_request(request.args)
         if verify_resp.get("status"):
-            return verify_resp.get("data")
+            return message_push_response(verify_resp.get("data"))
         else:
             app.logger.error('--------Verify wechat request failed: {}'.format(verify_resp))
-            return ""
-    
+            return message_push_response(verify_resp)
     app.logger.info('--------Received wechat message: {}'.format(request.data.decode('utf-8')))
     # 过滤探测请求(云托管上填写URL时会有此类请求)
     if request.data.decode('utf-8') == "CheckContainerPath":
-        return "success"
+        return message_push_response("success")
+    
     msg_handle = MsgHandle(request.data.decode('utf-8'))
     reply_xml = msg_handle.handle()
     if reply_xml is None:
-        return ""
-    return reply_xml    
+        return message_push_response("xml data is empty")
+    return message_push_response(reply_xml)    
